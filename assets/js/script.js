@@ -52,7 +52,7 @@ function createTaskCard(title, dueDate, description) {
 //Function to render tasks for a specific category from local storage
 function renderTaskList(category) {
   let tasks = JSON.parse(localStorage.getItem(category)) || []
-  let containerId = '#' + category.toLowerCase().replace(' ', '-') + '-cards' // Adjusted to append '-cards' to the ID
+  let containerId = '#' + category.toLowerCase().replace(' ', '-') + '-cards'
   let container = $(containerId)
 
   container.empty()
@@ -60,6 +60,25 @@ function renderTaskList(category) {
   //Render tasks in the container
   tasks.forEach((task) => {
     let taskCard = $('<div>').addClass('task-card card border mb-3')
+
+    // Determine background color based on due date
+    let dueDate = new Date(task.dueDate)
+    let today = new Date()
+    let timeDiff = dueDate.getTime() - today.getTime()
+    let daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
+    let bgColorClass = ''
+    let textColorClass = ''
+
+    if (daysDiff < 0) {
+      bgColorClass = 'bg-danger' // Red background for overdue tasks
+      textColorClass = 'text-white'
+    } else if (daysDiff === 1) {
+      bgColorClass = 'bg-warning' // Yellow background for tasks due in 1 day
+      textColorClass = 'text-white'
+    }
+
+    taskCard.addClass(bgColorClass) // Add the calculated background color class
+    taskCard.addClass(textColorClass)
     taskCard.append(
       $('<div>')
         .addClass('card-body')
@@ -69,7 +88,7 @@ function renderTaskList(category) {
           $('<p>')
             .addClass('card-description card-text')
             .text(task.description),
-          $('<button>').addClass('btn btn-primary').text('Delete')
+          $('<button>').addClass('btn btn-primary btn-delete').text('Delete')
         )
     )
 
@@ -81,10 +100,6 @@ function renderTaskList(category) {
 
     container.append(taskCard)
   })
-  //Render tasks in the container
-  // tasks.forEach((task) => {
-  //   container.append(createTaskCard(task.title, task.dueDate, task.description))
-  // })
 
   // Make task cards draggable
   makeTaskCardDraggable()
@@ -165,6 +180,13 @@ function moveTask(taskId, fromCategory, toCategory) {
   }
 }
 
+//Function to delete a task from local storage
+function removeTask(taskId, category) {
+  let tasks = JSON.parse(localStorage.getItem(category)) || []
+  tasks = tasks.filter((task) => task.id !== taskId)
+  localStorage.setItem(category, JSON.stringify(tasks))
+}
+
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 // console.log(JSON.parse(localStorage.getItem('To Do')))
 
@@ -207,5 +229,16 @@ $(document).ready(function () {
     $('#task-description').val('')
 
     modal.fadeOut()
+  })
+
+  //Create an event listener for the delete button on task cards
+  $(document).on('click', '.btn-delete', function () {
+    let taskId = $(this).closest('.task-card').data('task-id')
+    let taskCategory = $(this).closest('.task-card').data('task-category')
+    //remove the task from local storage
+    removeTask(taskId, taskCategory)
+
+    //Remove the task from the UI
+    $(this).closest('.task-card').remove()
   })
 })
