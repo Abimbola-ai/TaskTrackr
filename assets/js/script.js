@@ -58,33 +58,33 @@ function renderTaskList(category) {
   container.empty()
 
   //Render tasks in the container
-  //   tasks.forEach((task) => {
-  //     let taskCard = $('<div>').addClass('task-card card border mb-3')
-  //     taskCard.append(
-  //       $('<div>')
-  //         .addClass('card-body')
-  //         .append(
-  //           $('<h5>').addClass('card-title').text(task.title),
-  //           $('<p>').addClass('card-date').text(task.dueDate),
-  //           $('<p>')
-  //             .addClass('card-description card-text')
-  //             .text(task.description),
-  //           $('<button>').addClass('btn btn-primary').text('Delete')
-  //         )
-  //     )
-
-  //     taskCard.data('task-id', task.id)
-  //     taskCard.data('task-category', category)
-  //     taskCard.data('task-title', task.title)
-  //     taskCard.data('task-due-date', task.dueDate)
-  //     taskCard.data('task-description', task.description)
-
-  //     container.append(taskCard)
-  //   })
-  //Render tasks in the container
   tasks.forEach((task) => {
-    container.append(createTaskCard(task.title, task.dueDate, task.description))
+    let taskCard = $('<div>').addClass('task-card card border mb-3')
+    taskCard.append(
+      $('<div>')
+        .addClass('card-body')
+        .append(
+          $('<h5>').addClass('card-title').text(task.title),
+          $('<p>').addClass('card-date').text(task.dueDate),
+          $('<p>')
+            .addClass('card-description card-text')
+            .text(task.description),
+          $('<button>').addClass('btn btn-primary').text('Delete')
+        )
+    )
+
+    taskCard.data('task-id', task.id)
+    taskCard.data('task-category', category)
+    taskCard.data('task-title', task.title)
+    taskCard.data('task-due-date', task.dueDate)
+    taskCard.data('task-description', task.description)
+
+    container.append(taskCard)
   })
+  //Render tasks in the container
+  // tasks.forEach((task) => {
+  //   container.append(createTaskCard(task.title, task.dueDate, task.description))
+  // })
 
   // Make task cards draggable
   makeTaskCardDraggable()
@@ -141,13 +141,14 @@ function addTaskToTodoList(title, dueDate, description) {
   }
 
   // Add task to the To Do category in local storage
-  addTask('To Do', task)
+  addTask('to-do', task)
 
   // Generate task card
   var taskCard = createTaskCard(task.title, task.dueDate, task.description)
 
   // Append task card to the #todo-cards div
   $('#todo-cards').append(taskCard)
+  renderTaskList('to-do')
 }
 
 //Function to move tasks form one category to another
@@ -167,47 +168,6 @@ function moveTask(taskId, fromCategory, toCategory) {
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 // console.log(JSON.parse(localStorage.getItem('To Do')))
 
-// $(document).ready(function () {
-//   //   console.log(JSON.parse(localStorage.getItem('To Do')))
-
-//   // Logic to pop up form modal
-//   let modal = $('#add-task')
-//   let btnOpen = $('#create-task')
-//   let btnClose = $('.close')
-
-//   btnOpen.on('click', function () {
-//     modal.show()
-//   })
-
-//   btnClose.on('click', function () {
-//     modal.fadeOut()
-//   })
-//   renderTaskList('To Do')
-//   renderTaskList('In Progress')
-//   renderTaskList('Done')
-
-//   // Make containers droppable
-//   makeContainersDroppable()
-
-//   //Create an event listener to the form submission process
-//   $('form').on('submit', function (event) {
-//     event.preventDefault() //Prevents form submission default behaviour
-//     //Get user input values
-//     let title = $('#task-title').val()
-//     let dueDate = $('#task-due-date').val()
-//     let description = $('#task-description').val()
-
-//     //Generate task card by caling the create task function
-//     addTaskToTodoList(title, dueDate, description)
-
-//     //Clear user input values
-//     $('#task-title').val('')
-//     $('#task-due-date').val('')
-//     $('#task-description').val('')
-
-//     modal.fadeOut()
-//   })
-// })
 $(document).ready(function () {
   // Logic to pop up form modal
   let modal = $('#add-task')
@@ -226,9 +186,9 @@ $(document).ready(function () {
   makeContainersDroppable()
 
   // Render task lists after the DOM is fully loaded
-  renderTaskList('To Do')
-  renderTaskList('In Progress')
-  renderTaskList('Done')
+  renderTaskList('to-do')
+  renderTaskList('in-progress')
+  renderTaskList('done')
 
   // Create an event listener for the form submission process
   $('form').on('submit', function (event) {
