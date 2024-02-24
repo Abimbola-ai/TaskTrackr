@@ -1,0 +1,59 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+.swim-lanes {
+  min-height: 60vh;
+}
+
+.task-card {
+  margin: 0 auto;
+}
+
+.task-card:hover {
+  cursor: grab;
+}
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0px;
+    opacity: 1;
+  }
+}
+
+#add-task {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  background-color: #fefefe;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content {
+  margin: 5% auto;
+  width: 500px;
+  max-width: 90%;
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+/* buttons */
+#modal-close {
+  float: right;
+  cursor: pointer;
+}
+
+#modal-close:hover {
+  color: red;
+}
