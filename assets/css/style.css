@@ -1,10 +1,39 @@
+/* General */
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   font-size: 16px;
+  font-style: normal;
+  font-optical-sizing: auto;
+  margin: 0;
+}
+/* Home Section */
+
+.container-fluid {
+  margin: 0;
+  padding: 0;
+}
+
+#home {
+  max-height: 100vh;
+}
+
+.home-header {
+  height: 40vh;
+}
+
+.home-image img {
+  max-height: 60vh;
+  width: auto;
+}
+
+.home-header {
+  background: #021234;
+  padding: 10px;
+  color: #fefefe;
 }
 
 .swim-lanes {
-  min-height: 60vh;
+  min-height: 80vh;
 }
 
 .task-card {
@@ -14,6 +43,11 @@ body {
 .task-card:hover {
   cursor: grab;
 }
+#task-section {
+  display: none;
+}
+
+/* Modal */
 @keyframes animatetop {
   from {
     top: -300px;
@@ -40,13 +74,13 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.popup-content {
+/* .popup-content {
   margin: 5% auto;
   width: 500px;
   max-width: 90%;
   border-radius: 0.3rem;
   outline: 0;
-}
+} */
 
 /* buttons */
 #modal-close {
@@ -55,5 +89,63 @@ body {
 }
 
 #modal-close:hover {
+  color: #be2528;
+}
+
+#home-page-btn {
+  background-color: #021234;
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  border: none;
+  color: white;
+  padding: 15px 30px;
+
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style */
+  transition: background-color 0.3s, color 0.3s;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Glassy box shadow */
+}
+
+#home-page-btn:hover {
+  background-color: #966b40; /* Lighter background on hover */
+  color: white; /* Darker text color on hover */
+}
+
+#task-section {
+  background: #021234;
+}
+
+#create-task:hover {
+  border-color: white;
+  background: transparent;
+  color: white;
+}
+
+.btn-delete {
+  background: #021234;
+  border-color: #021234;
+}
+#add-task-btn {
+  background: #021234;
+  border-color: #021234;
+  color: #fefefe;
+}
+
+#add-task-btn:hover {
+  border-color: #021234;
+  background: none;
+  color: #021234;
+}
+.btn-delete:hover {
+  border: 1px solid white;
+  background: transparent;
   color: red;
+  border-color: #be2528;
+}
+
+.bg-danger {
+  background: #be2528;
+}
+
+.bg-warning {
+  background: #fff44f;
 }

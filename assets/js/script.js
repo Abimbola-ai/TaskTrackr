@@ -1,8 +1,7 @@
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-  var taskIdCounter = parseInt(localStorage.getItem('taskIdCounter')) || 0
-  //   console.log('Current taskIdCounter:', taskIdCounter)
-  taskIdCounter++
+  let taskIdCounter = parseInt(localStorage.getItem('taskIdCounter')) || 0
+  taskIdCounter++ //Increment task id counter
   localStorage.setItem('taskIdCounter', taskIdCounter)
   //   console.log('New taskIdCounter:', taskIdCounter)
   return taskIdCounter
@@ -23,12 +22,12 @@ function createTaskCard(title, dueDate, description) {
   let cardTitle = document.createElement('h5')
   cardTitle.classList.add('card-title')
   cardTitle.textContent = title
-  //Task Due date
+  //Create Task Due date
   let cardDate = document.createElement('p')
   cardDate.classList.add('card-date')
   cardDate.textContent = dueDate
 
-  //Task Description
+  //Create Task Description
   let cardDescription = document.createElement('p')
   cardDescription.classList.add('card-description', 'card-text')
   cardDescription.textContent = description
@@ -39,7 +38,7 @@ function createTaskCard(title, dueDate, description) {
   cardButton.innerHTML = 'Delete'
   //   cardButton.textContent = Delete
 
-  //Append elements
+  //Append elements to the card
   cardBody.appendChild(cardTitle)
   cardBody.appendChild(cardDate)
   cardBody.appendChild(cardDescription)
@@ -52,10 +51,10 @@ function createTaskCard(title, dueDate, description) {
 //Function to render tasks for a specific category from local storage
 function renderTaskList(category) {
   let tasks = JSON.parse(localStorage.getItem(category)) || []
-  let containerId = '#' + category.toLowerCase().replace(' ', '-') + '-cards'
+  let containerId = '#' + category.toLowerCase().replace(' ', '-') + '-cards' //Set local storage name
   let container = $(containerId)
 
-  container.empty()
+  container.empty() //Clear contents in selected elements
 
   //Render tasks in the container
   tasks.forEach((task) => {
@@ -70,10 +69,10 @@ function renderTaskList(category) {
     let textColorClass = ''
 
     if (daysDiff < 0) {
-      bgColorClass = 'bg-danger' // Red background for overdue tasks
+      bgColorClass = 'bg-danger' // Add Red background for overdue tasks
       textColorClass = 'text-white'
     } else if (daysDiff === 1) {
-      bgColorClass = 'bg-warning' // Yellow background for tasks due in 1 day
+      bgColorClass = 'bg-warning' // Add Yellow background for tasks due in 1 day
       textColorClass = 'text-white'
     }
 
@@ -147,6 +146,16 @@ function addTask(category, task) {
 
 //Function to add a new task to the To Do category and generate corresponding card
 function addTaskToTodoList(title, dueDate, description) {
+  // Check if any of the input fields are empty
+  if (
+    title.trim() === '' ||
+    dueDate.trim() === '' ||
+    description.trim() === ''
+  ) {
+    alert('Please fill out all fields before adding a new task.')
+    return
+  }
+
   // Create task object
   var task = {
     id: generateTaskId(),
@@ -188,7 +197,6 @@ function removeTask(taskId, category) {
 }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-// console.log(JSON.parse(localStorage.getItem('To Do')))
 
 $(document).ready(function () {
   // Logic to pop up form modal
@@ -240,5 +248,13 @@ $(document).ready(function () {
 
     //Remove the task from the UI
     $(this).closest('.task-card').remove()
+  })
+})
+
+//Event Listener to show and hide the task sections
+$(document).ready(function () {
+  $('#home-page-btn').click(function () {
+    $('#home').hide() // Hide the home section
+    $('#task-section').show() // Show the task section
   })
 })
