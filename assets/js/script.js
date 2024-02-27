@@ -257,4 +257,13 @@ $(document).ready(function () {
     $('#home').hide() // Hide the home section
     $('#task-section').show() // Show the task section
   })
+  $('.arrow-back').click(function (e) {
+    e.preventDefault() // Prevent default anchor behavior
+
+    // Toggle visibility of home and task sections
+    // Initialize Bootstrap tooltip
+    $('[data-bs-toggle="tooltip"]').tooltip()
+    $('#home').show()
+    $('#task-section').hide()
+  })
 })

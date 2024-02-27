@@ -33,7 +33,7 @@
 
   <body class="container-fluid">
     <!-- App Home Page -->
-    <div class="" id="home">
+    <div id="home">
       <div class="row home-header d-flex align-items-center text-center">
         <div
           class="col-md d-flex justify-content-center align-items-center mb-md-0"
@@ -70,6 +70,14 @@
     </div>
     <section id="task-section">
       <div class="container">
+        <a
+          href="#"
+          class="arrow-back text-light position-absolute top-40 mt-2"
+          data-bs-toggle="tooltip"
+          title="Go Back Home"
+        >
+          <span class="material-symbols-outlined fs-1">keyboard_backspace</span>
+        </a>
         <header class="p-4 mb-4 text-light text-center border-bottom border-5">
           <h2 class="display-3">Task Board</h2>
           <p class="lead">A simple Kanban board for task management</p>
@@ -90,7 +98,13 @@
             <div class="modal-header mb-3">
               <h5>Add new Task</h5>
               <div class="close" id="modal-close">
-                <span class="material-symbols-outlined"> close </span>
+                <span
+                  class="material-symbols-outlined"
+                  data-bs-toggle="tooltip"
+                  title="close"
+                >
+                  close
+                </span>
               </div>
             </div>
 
